@@ -83,6 +83,41 @@ editpicforpartV1, Add one pair of thin round gold-rimmed eyeglasses with clear l
 
 明确说明翻盖、正面、侧面和提手后，包身从焦糖棕变成雾蓝；金属扣与走线大体保留。**提手仍棕色，未完成所有皮革部位的改色**。[原图](examples/08_handbag_explicit_whole/before.png) · [结果](examples/08_handbag_explicit_whole/after.png) · [实际指令](examples/08_handbag_explicit_whole/prompt.txt)
 
+
+## 更多类型与详细指令复测
+
+新增写真、家居、美食和水彩插画的实际前后对照。以下同时包含有效修改和未完成项；所有参考图均由本机 MOSS SFT 生成，结果来自同一 v2 LoRA，对照仅缩放排版。猫的测试已停止，未纳入此展示图库。
+
+### 皮包：明确部件后，改色范围更完整
+
+![皮包：明确部件后，改色范围更完整](examples/gallery/02_handbag_prompt_comparison.jpg)
+
+从只改翻盖和侧面，到正面包身也变蓝；金属扣与走线大体保留，提手仍为棕色。
+
+### 写真：白色针织毛衣改蓝
+
+![写真：白色针织毛衣改蓝](examples/gallery/03_knit_sweater.jpg)
+
+毛衣改蓝生效，街景与姿势大体保持；脸部、衣领和针织纹理仍有重绘。
+
+### 家居：沙发改色与抱枕保留的边界
+
+![家居：沙发改色与抱枕保留的边界](examples/gallery/04_sofa_prompt_comparison.jpg)
+
+沙发变绿；详细指令改善了左侧黄抱枕，但右侧保留不足，并出现额外绿色物体。
+
+### 美食：明确六颗草莓后，仍未完整替换
+
+![美食：明确六颗草莓后，仍未完整替换](examples/gallery/05_cake_six_strawberries.jpg)
+
+六处位置均得到处理，但仍有红色草莓果肉和绿叶，呈混合形态，不算完整替换成功。
+
+### 水彩插画：斗篷部分改色，背景整体保留
+
+![水彩插画：斗篷部分改色，背景整体保留](examples/gallery/06_watercolor_cape.jpg)
+
+前方衣片变红，外侧仍有浅蓝；详细指令使尾巴保留橘色，但轮廓和姿态仍改变。
+
 ## 创作依据与技术介绍
 
 插件参考 [Ostris AI-Toolkit](https://github.com/ostris/ai-toolkit) 的 MOSS 编辑推理和采样约定，以及 [Ostris MOSS 编辑节点](https://github.com/ostris/ComfyUI-MOSS-Image-Ostris-Edit) 的参考图接入方式，在 ComfyUI 原生模型接口上实现。它不是 AI-Toolkit 本体，也不包含训练功能。

@@ -1,0 +1,1 @@
+editpicforpartV1, Change only the woman's cream white knitted sweater to a blue knitted sweater. Keep the knitted texture, her face, hair, pose, brown handbag, jeans, lighting and background unchanged. Only modify the requested content, and try to keep the rest of the image unchanged as much as possible

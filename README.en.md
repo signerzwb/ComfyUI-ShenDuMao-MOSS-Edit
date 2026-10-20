@@ -79,6 +79,41 @@ The glasses were added while the subject, earrings, clothing and setting remaine
 
 Explicit part descriptions changed the flap, front and side panels from caramel brown to powder blue. The clasp and stitching were broadly preserved. **The handle remained brown, so the request to recolor every leather part was not fully completed.** [Input](examples/08_handbag_explicit_whole/before.png) · [Output](examples/08_handbag_explicit_whole/after.png) · [Actual prompt](examples/08_handbag_explicit_whole/prompt.txt)
 
+
+## More image types and explicit-instruction trials
+
+Additional fashion, interior, food and watercolor comparisons include both effective changes and remaining limitations. References were generated locally with MOSS SFT; results use the same v2 LoRA. Contact sheets only resize and label actual outputs. Cat testing was stopped and is excluded from this gallery.
+
+### 皮包：明确部件后，改色范围更完整
+
+![Edit comparison](examples/gallery/02_handbag_prompt_comparison.jpg)
+
+Explicit part descriptions extended the recolor to the front body. The handle still remained brown.
+
+### 写真：白色针织毛衣改蓝
+
+![Edit comparison](examples/gallery/03_knit_sweater.jpg)
+
+The sweater became blue; pose and street layout broadly stayed, while face, collar and knit details changed.
+
+### 家居：沙发改色与抱枕保留的边界
+
+![Edit comparison](examples/gallery/04_sofa_prompt_comparison.jpg)
+
+Sofa recolor worked. Yellow-cushion preservation remained incomplete, with an unwanted green object.
+
+### 美食：明确六颗草莓后，仍未完整替换
+
+![Edit comparison](examples/gallery/05_cake_six_strawberries.jpg)
+
+All six positions were targeted, but strawberry flesh and leaves remained: object replacement was incomplete.
+
+### 水彩插画：斗篷部分改色，背景整体保留
+
+![Edit comparison](examples/gallery/06_watercolor_cape.jpg)
+
+Front cape panels became red; blue fabric remained outside. Orange tail color improved, but its shape changed.
+
 ## Implementation and sources
 
 The implementation follows the MOSS edit inference/sampling contract in [Ostris AI-Toolkit](https://github.com/ostris/ai-toolkit) and adapts reference-image integration from [Ostris's MOSS edit nodes](https://github.com/ostris/ComfyUI-MOSS-Image-Ostris-Edit). It integrates with native ComfyUI interfaces and does not include training software.

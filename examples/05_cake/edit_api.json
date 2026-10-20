@@ -1,0 +1,135 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "moss_image_sft_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "MOSSEditLoRALoader",
+    "inputs": {
+      "lora_name": "moss_wendingedit_lr5e-5_1024_v2_000002000.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "1",
+        0
+      ]
+    }
+  },
+  "3": {
+    "class_type": "MOSSFullVisionCLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3.5_9b_w4a8_gptq.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "moss_v2_community_cases/09_cake_six_explicit_before.png"
+    },
+    "is_changed": [
+      "9788f424b5f5d8609e35e92c74ae3d5721691ad77cf0d684d3c6f33e5da0dfa0"
+    ]
+  },
+  "6": {
+    "class_type": "MOSSSingleImageEditPrepare",
+    "inputs": {
+      "prompt": "editpicforpartV1, Replace all SIX red strawberries with green leafy tops on the cake with SIX small clusters of ripe dark blue blueberries. There are three strawberries in the front row and three in the back row. Remove the entire red flesh and green leafy cap of every one of the six strawberries, and put one cluster of round blueberries in each of those six original positions. No red strawberry or green strawberry leaf should remain on the cake. Keep the six white cream rosettes under the fruit, the smooth white cake frosting, the round cake's size and shape, the ivory ceramic pedestal stand, wooden table, window light and background unchanged. Only modify the requested content, and try to keep the rest of the image unchanged as much as possible",
+      "negative_prompt": "",
+      "width": 1024,
+      "height": 1024,
+      "reuse_reference_cache": true,
+      "model": [
+        "2",
+        0
+      ],
+      "clip": [
+        "3",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ],
+      "image": [
+        "5",
+        0
+      ]
+    }
+  },
+  "7": {
+    "class_type": "MOSSSingleImageEditSigmas",
+    "inputs": {
+      "steps": 50,
+      "shift": 5.0
+    }
+  },
+  "8": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "9": {
+    "class_type": "SamplerCustom",
+    "inputs": {
+      "add_noise": true,
+      "noise_seed": 42,
+      "cfg": 3.0,
+      "model": [
+        "6",
+        0
+      ],
+      "positive": [
+        "6",
+        1
+      ],
+      "negative": [
+        "6",
+        2
+      ],
+      "latent_image": [
+        "6",
+        3
+      ],
+      "sigmas": [
+        "7",
+        0
+      ],
+      "sampler": [
+        "8",
+        0
+      ]
+    }
+  },
+  "10": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "9",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "11": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "moss_v2_community_cases/09_cake_six_explicit_after_v2",
+      "images": [
+        "10",
+        0
+      ]
+    }
+  }
+}
