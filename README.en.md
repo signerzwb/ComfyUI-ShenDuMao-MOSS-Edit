@@ -53,6 +53,7 @@ Specify counts, locations, existing appearance, target appearance and what shoul
 Five aligned groups: model loading, reference image, edit conditioning, sampling, and output.
 
 - [General SFT + v2 workflow](workflows/shendumao_moss_sft_v2_edit.json)
+- [Download workflow JSON](https://github.com/signerzwb/ComfyUI-ShenDuMao-MOSS-Edit/releases/download/v0.1.0/shendumao_moss_sft_v2_edit.json) · [Plugin ZIP](https://github.com/signerzwb/ComfyUI-ShenDuMao-MOSS-Edit/releases/download/v0.1.0/ComfyUI-ShenDuMao-MOSS-Edit-v0.1.0.zip)
 - [Eyeglasses workflow](workflows/example_portrait_glasses.json) · [Reference](examples/01_portrait_glasses/before.png)
 - [Handbag workflow](workflows/example_handbag_recolor.json) · [Reference](examples/08_handbag_explicit_whole/before.png)
 

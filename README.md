@@ -57,6 +57,7 @@ editpicforpartV1, Add one pair of thin round gold-rimmed eyeglasses with clear l
 按模型加载、参考图片、编辑条件、采样参数、输出结果五区排列；节点与连线分组对齐。
 
 - [通用 SFT + v2 工作流](workflows/shendumao_moss_sft_v2_edit.json)
+- [直接下载通用工作流 JSON](https://github.com/signerzwb/ComfyUI-ShenDuMao-MOSS-Edit/releases/download/v0.1.0/shendumao_moss_sft_v2_edit.json) · [插件 ZIP](https://github.com/signerzwb/ComfyUI-ShenDuMao-MOSS-Edit/releases/download/v0.1.0/ComfyUI-ShenDuMao-MOSS-Edit-v0.1.0.zip)
 - [眼镜案例工作流](workflows/example_portrait_glasses.json) · [配套原图](examples/01_portrait_glasses/before.png)
 - [皮包案例工作流](workflows/example_handbag_recolor.json) · [配套原图](examples/08_handbag_explicit_whole/before.png)
 
