@@ -1,0 +1,132 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "moss_image_sft_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "MOSSEditLoRALoader",
+    "inputs": {
+      "lora_name": "moss_wendingedit_lr5e-5_1024_v2_000002000.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "1",
+        0
+      ]
+    }
+  },
+  "3": {
+    "class_type": "MOSSFullVisionCLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3.5_9b_w4a8_gptq.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "upload_your_reference.png"
+    }
+  },
+  "6": {
+    "class_type": "MOSSSingleImageEditPrepare",
+    "inputs": {
+      "prompt": "editpicforpartV1, Add a pair of thin round gold-rimmed eyeglasses to the woman's face, with clear transparent lenses. Keep her facial features, expression, hairstyle, earrings, clothing, pose, lighting and background unchanged. Only modify the requested content, and try to keep the rest of the image unchanged as much as possible",
+      "negative_prompt": "",
+      "width": 768,
+      "height": 1024,
+      "reuse_reference_cache": true,
+      "model": [
+        "2",
+        0
+      ],
+      "clip": [
+        "3",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ],
+      "image": [
+        "5",
+        0
+      ]
+    }
+  },
+  "7": {
+    "class_type": "MOSSSingleImageEditSigmas",
+    "inputs": {
+      "steps": 50,
+      "shift": 5.0
+    }
+  },
+  "8": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "9": {
+    "class_type": "SamplerCustom",
+    "inputs": {
+      "add_noise": true,
+      "noise_seed": 42,
+      "cfg": 3.0,
+      "model": [
+        "6",
+        0
+      ],
+      "positive": [
+        "6",
+        1
+      ],
+      "negative": [
+        "6",
+        2
+      ],
+      "latent_image": [
+        "6",
+        3
+      ],
+      "sigmas": [
+        "7",
+        0
+      ],
+      "sampler": [
+        "8",
+        0
+      ]
+    }
+  },
+  "10": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "9",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "11": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "moss_v2_community_cases/01_portrait_glasses_after_v2",
+      "images": [
+        "10",
+        0
+      ]
+    }
+  }
+}

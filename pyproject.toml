@@ -1,0 +1,13 @@
+[project]
+name = "comfyui-shendumao-moss-edit"
+version = "0.1.0"
+description = "ShenDuMao MOSS single-image edit nodes aligned with AI-Toolkit reference conditioning and sampling."
+license = {file = "LICENSE"}
+authors = [{name = "ShenDuMao / 神都猫"}]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/signerzwb/ComfyUI-ShenDuMao-MOSS-Edit"
+
+[tool.comfy]
+DisplayName = "ShenDuMao MOSS Edit"
