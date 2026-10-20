@@ -4,7 +4,7 @@
 
 神都猫的 **MOSS 单参考图编辑 ComfyUI 节点**。输入一张图片和明确的编辑指令，加载配套 LoRA，即可尝试添加配饰、改衣服或商品颜色等局部编辑。
 
-**LoRA 下载：MODEL_LINK_PENDING**
+**LoRA 下载：[魔搭模型页](https://www.modelscope.cn/models/shendumao/ShenDuMao-MOSS-Edit-LoRA-v2) · [直接下载 v2 LoRA](https://www.modelscope.cn/models/shendumao/ShenDuMao-MOSS-Edit-LoRA-v2/resolve/master/moss_wendingedit_lr5e-5_1024_v2_000002000.safetensors)**
 
 配套 LoRA：**神都猫使用 AI-Toolkit 训练，2000 步，v2**。本页展示使用 MOSS Image **SFT** 推理的真实输出。当前是实验版；非目标区域也可能重绘，部分编辑指令不能完整完成。
 
@@ -51,6 +51,20 @@ editpicforpartV1, [编辑指令], Only modify the requested content, and try to 
 ```text
 editpicforpartV1, Add one pair of thin round gold-rimmed eyeglasses with clear lenses to the woman's face. Keep her facial features, expression, hairstyle, earrings, clothing, pose, lighting and background unchanged., Only modify the requested content, and try to keep the rest of the image unchanged as much as possible
 ```
+
+## 示例工作流与排版
+
+按模型加载、参考图片、编辑条件、采样参数、输出结果五区排列；节点与连线分组对齐。
+
+- [通用 SFT + v2 工作流](workflows/shendumao_moss_sft_v2_edit.json)
+- [眼镜案例工作流](workflows/example_portrait_glasses.json) · [配套原图](examples/01_portrait_glasses/before.png)
+- [皮包案例工作流](workflows/example_handbag_recolor.json) · [配套原图](examples/08_handbag_explicit_whole/before.png)
+
+导入后请在 LoadImage 重新选择配套原图，确认主模型、编码器、VAE、LoRA 选择正确，再运行。案例 PNG 保存原始运行图；上面的 JSON 是重新排版版本，采样参数相同。
+
+实际导入并运行成功后的工作流分区预览：
+
+![Workflow preview](examples/workflow_preview.png)
 
 ## 图片案例
 

@@ -4,7 +4,7 @@
 
 Single-reference image-editing nodes for **MOSS Image** in ComfyUI. Load a reference image and the companion edit LoRA, then describe a specific local change such as adding eyeglasses or recoloring clothing or a product.
 
-**Download the LoRA: MODEL_LINK_PENDING**
+**Download the LoRA: [ModelScope model page](https://www.modelscope.cn/models/shendumao/ShenDuMao-MOSS-Edit-LoRA-v2) · [Direct v2 LoRA download](https://www.modelscope.cn/models/shendumao/ShenDuMao-MOSS-Edit-LoRA-v2/resolve/master/moss_wendingedit_lr5e-5_1024_v2_000002000.safetensors)**
 
 **Trained by ShenDuMao (神都猫) using AI-Toolkit, 2,000 steps, v2.** Examples use **MOSS Image SFT** for inference. This is an experimental release: other details may be redrawn and some instructions are only partly followed.
 
@@ -47,6 +47,20 @@ editpicforpartV1, [edit instruction], Only modify the requested content, and try
 ```
 
 Specify counts, locations, existing appearance, target appearance and what should remain. The node uses the instruction as entered: it does not translate it, expand it or insert the training prefix/suffix.
+
+## Organized example workflows
+
+Five aligned groups: model loading, reference image, edit conditioning, sampling, and output.
+
+- [General SFT + v2 workflow](workflows/shendumao_moss_sft_v2_edit.json)
+- [Eyeglasses workflow](workflows/example_portrait_glasses.json) · [Reference](examples/01_portrait_glasses/before.png)
+- [Handbag workflow](workflows/example_handbag_recolor.json) · [Reference](examples/08_handbag_explicit_whole/before.png)
+
+After import, select the reference again in LoadImage and confirm the model, encoder, VAE and LoRA selections. Example PNGs retain the original run graph; the JSON files above reorganize the layout with the same sampling settings.
+
+Workflow preview after an actual successful import and execution:
+
+![Workflow preview](examples/workflow_preview.png)
 
 ## Examples
 

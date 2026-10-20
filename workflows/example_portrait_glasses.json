@@ -1,0 +1,665 @@
+{
+  "last_node_id": 11,
+  "last_link_id": 14,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "pos": [
+        60,
+        140
+      ],
+      "size": [
+        360,
+        100
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "moss_image_sft_int8_convrot.safetensors",
+        "default"
+      ],
+      "title": "MOSS SFT · 主模型"
+    },
+    {
+      "id": 2,
+      "type": "MOSSEditLoRALoader",
+      "pos": [
+        60,
+        300
+      ],
+      "size": [
+        360,
+        140
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MOSSEditLoRALoader"
+      },
+      "widgets_values": [
+        "moss_wendingedit_lr5e-5_1024_v2_000002000.safetensors",
+        1.0
+      ],
+      "title": "ShenDuMao v2 · 编辑 LoRA"
+    },
+    {
+      "id": 3,
+      "type": "MOSSFullVisionCLIPLoader",
+      "pos": [
+        60,
+        510
+      ],
+      "size": [
+        360,
+        90
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MOSSFullVisionCLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3.5_9b_w4a8_gptq.safetensors"
+      ],
+      "title": "Full Vision Encoder · 完整视觉编码器"
+    },
+    {
+      "id": 4,
+      "type": "VAELoader",
+      "pos": [
+        60,
+        680
+      ],
+      "size": [
+        360,
+        90
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            4,
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "flux2-vae.safetensors"
+      ],
+      "title": "FLUX.2 VAE"
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [
+        500,
+        140
+      ],
+      "size": [
+        420,
+        620
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            5
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "moss_v2_community_cases/01_portrait_glasses_before.png",
+        "image"
+      ],
+      "title": "Reference Image · 上传原图"
+    },
+    {
+      "id": 6,
+      "type": "MOSSSingleImageEditPrepare",
+      "pos": [
+        1000,
+        160
+      ],
+      "size": [
+        580,
+        610
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 4
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            8
+          ]
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MOSSSingleImageEditPrepare"
+      },
+      "widgets_values": [
+        "editpicforpartV1, Add a pair of thin round gold-rimmed eyeglasses to the woman's face, with clear transparent lenses. Keep her facial features, expression, hairstyle, earrings, clothing, pose, lighting and background unchanged. Only modify the requested content, and try to keep the rest of the image unchanged as much as possible",
+        "",
+        768,
+        1024,
+        true
+      ],
+      "title": "Edit Instruction & Size · 编辑指令与尺寸"
+    },
+    {
+      "id": 7,
+      "type": "MOSSSingleImageEditSigmas",
+      "pos": [
+        1660,
+        140
+      ],
+      "size": [
+        340,
+        105
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MOSSSingleImageEditSigmas"
+      },
+      "widgets_values": [
+        50,
+        5.0
+      ],
+      "title": "AI-Toolkit Sigmas · 步数与 Shift"
+    },
+    {
+      "id": 8,
+      "type": "KSamplerSelect",
+      "pos": [
+        1660,
+        320
+      ],
+      "size": [
+        340,
+        80
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerSelect"
+      },
+      "widgets_values": [
+        "euler"
+      ],
+      "title": "Euler · 采样器"
+    },
+    {
+      "id": 9,
+      "type": "SamplerCustom",
+      "pos": [
+        1660,
+        490
+      ],
+      "size": [
+        340,
+        335
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 6
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 7
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 8
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 11
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 10
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            12
+          ]
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SamplerCustom"
+      },
+      "widgets_values": [
+        true,
+        42,
+        "fixed",
+        3.0
+      ],
+      "title": "Sampling · 种子 / CFG / 采样"
+    },
+    {
+      "id": 10,
+      "type": "VAEDecode",
+      "pos": [
+        2080,
+        140
+      ],
+      "size": [
+        280,
+        100
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 12
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": [],
+      "title": "Decode · VAE 解码"
+    },
+    {
+      "id": 11,
+      "type": "SaveImage",
+      "pos": [
+        2080,
+        330
+      ],
+      "size": [
+        660,
+        490
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "moss_v2_community_cases/01_portrait_glasses_after_v2"
+      ],
+      "title": "Edited Result · 编辑结果"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      2,
+      0,
+      6,
+      0,
+      "MODEL"
+    ],
+    [
+      3,
+      3,
+      0,
+      6,
+      1,
+      "CLIP"
+    ],
+    [
+      4,
+      4,
+      0,
+      6,
+      2,
+      "VAE"
+    ],
+    [
+      5,
+      5,
+      0,
+      6,
+      3,
+      "IMAGE"
+    ],
+    [
+      6,
+      6,
+      0,
+      9,
+      0,
+      "MODEL"
+    ],
+    [
+      7,
+      6,
+      1,
+      9,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      8,
+      6,
+      2,
+      9,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      9,
+      6,
+      3,
+      9,
+      5,
+      "LATENT"
+    ],
+    [
+      10,
+      7,
+      0,
+      9,
+      4,
+      "SIGMAS"
+    ],
+    [
+      11,
+      8,
+      0,
+      9,
+      3,
+      "SAMPLER"
+    ],
+    [
+      12,
+      9,
+      0,
+      10,
+      0,
+      "LATENT"
+    ],
+    [
+      13,
+      4,
+      0,
+      10,
+      1,
+      "VAE"
+    ],
+    [
+      14,
+      10,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "01  Models / 模型加载",
+      "bounding": [
+        30,
+        65,
+        420,
+        810
+      ],
+      "color": "#466787",
+      "font_size": 25,
+      "flags": {}
+    },
+    {
+      "title": "02  Reference / 参考图片",
+      "bounding": [
+        470,
+        65,
+        480,
+        810
+      ],
+      "color": "#4c7a70",
+      "font_size": 25,
+      "flags": {}
+    },
+    {
+      "title": "03  Instruction / 编辑条件",
+      "bounding": [
+        970,
+        65,
+        640,
+        810
+      ],
+      "color": "#7d624d",
+      "font_size": 25,
+      "flags": {}
+    },
+    {
+      "title": "04  Sampling / 采样参数",
+      "bounding": [
+        1630,
+        65,
+        400,
+        810
+      ],
+      "color": "#71608d",
+      "font_size": 25,
+      "flags": {}
+    },
+    {
+      "title": "05  Output / 输出结果",
+      "bounding": [
+        2050,
+        65,
+        720,
+        810
+      ],
+      "color": "#4b7986",
+      "font_size": 25,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.58,
+      "offset": [
+        40,
+        80
+      ]
+    },
+    "info": {
+      "name": "ShenDuMao MOSS SFT + v2 Single-Image Edit",
+      "author": "ShenDuMao",
+      "description": "Load models, upload a reference, write the full instruction, sample and save.",
+      "software": "ComfyUI"
+    }
+  },
+  "version": 0.4
+}
